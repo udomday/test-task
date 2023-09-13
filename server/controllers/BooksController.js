@@ -25,8 +25,19 @@ class BooksController {
 
   async getAll(req, res, next) {
     try {
-      const books = await Books.findAndCountAll();
+      const { offset, limit } = req.query;
 
+      if (!offset || !limit) {
+        return next(
+          ApiError.badRequest("Необходимо ввести параметры limit и page")
+        );
+      }
+
+      const books = await Books.findAndCountAll({
+        offset: offset,
+        limit: limit,
+        subQuery: false,
+      });
       return res.json(books);
     } catch (e) {
       next(ApiError.badRequest(e.message));

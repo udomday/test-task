@@ -1,6 +1,6 @@
 const sequelize = require("../db");
 const ApiError = require("../error/ApiError");
-const { Reviews } = require("../models/models");
+const { Reviews, Books } = require("../models/models");
 
 class ReviewsController {
   async create(req, res, next) {
@@ -26,9 +26,25 @@ class ReviewsController {
 
   async getAll(req, res, next) {
     try {
-      const reviews = await Reviews.findAndCountAll();
+      const { offset, limit } = req.query;
 
-      return res.json(reviews);
+      if (!offset || !limit) {
+        return next(
+          ApiError.badRequest("Необходимо ввести параметры limit и page")
+        );
+      }
+      const count = await sequelize.query(`SELECT * FROM reviews;`, {
+        type: sequelize.QueryTypes.SELECT,
+      });
+
+      const reviews = await sequelize.query(
+        `SELECT reviews.id, reviews.login, reviews.description, reviews.likes, reviews.createdat, books.title AS titlebook FROM reviews INNER JOIN books ON reviews.bookid = books.id ORDER BY reviews.id LIMIT ${limit} OFFSET ${offset}`,
+        {
+          type: sequelize.QueryTypes.SELECT,
+        }
+      );
+
+      return res.json({ count: count.length, rows: reviews });
     } catch (e) {
       next(ApiError.badRequest(e.message));
     }
