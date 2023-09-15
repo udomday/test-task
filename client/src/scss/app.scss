@@ -14,6 +14,12 @@ body {
   gap: 30px;
 }
 
+.mt {
+  &-60 {
+    margin-top: 60px;
+  }
+}
+
 .mb {
   &-10 {
     margin-bottom: 10px;
@@ -27,7 +33,9 @@ body {
   border-radius: 10px;
   color: #fff;
   font-weight: 500;
-  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transition:
+    background-color 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
 
   &:hover {
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.06);
@@ -98,6 +106,38 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.hr-line {
+  width: 100%;
+  flex-shrink: 0;
+  border-top: 0px solid rgba(0, 0, 0, 0.08);
+  border-right: 0px solid rgba(0, 0, 0, 0.08);
+  border-left: 0px solid rgba(0, 0, 0, 0.08);
+  height: 0.0625rem;
+  margin: 1rem 0px;
+  border-bottom: none;
+  opacity: 0.25;
+  background-color: transparent;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    rgb(255, 255, 255),
+    rgba(255, 255, 255, 0)
+  ) !important;
+}
+
+.grid {
+  display: grid;
+  justify-content: space-between;
+
+  &-columns-2 {
+    grid-template-columns: repeat(2, 600px);
+  }
+
+  &-columns-4 {
+    grid-template-columns: repeat(4, 280px);
+  }
+}
+
 .flex {
   display: flex;
 
@@ -116,4 +156,17 @@ body {
   &-justify-between {
     justify-content: space-between;
   }
+
+  &-justify-end {
+    justify-content: end;
+  }
+}
+
+.warning {
+  color: red;
+  padding: 10px;
+}
+
+.hidden {
+  display: none;
 }

@@ -3,12 +3,20 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import React from "react";
 import { AgGridReact } from "ag-grid-react";
-import { useDispatch } from "react-redux";
-import { fetchBooks } from "../../redux/slices/BookSlice/slice";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteBook, fetchBooks } from "../../redux/slices/BookSlice/slice";
+import { selectReloadAg } from "../../redux/slices/ConstsSlice/selectors";
+import { setReloadAg } from "../../redux/slices/ConstsSlice/slice";
+import { BookModal } from "../BookModal";
 
 export const AgGridBooks = () => {
   const dispatch = useDispatch();
-  const [selectedBook, setSelectedBook] = React.useState(null);
+  const [isVisibleWarning, setIsVisibleWarning] = React.useState(false);
+  const [isVisibleModal, setIsVisibleModal] = React.useState(false);
+  const [isUpdate, setIsUpdate] = React.useState(false);
+  const [modalData, setModalData] = React.useState([]);
+  const gridRef = React.useRef();
+
   const [columnDefs, setColumnDefs] = React.useState([
     {
       field: "id",
@@ -47,38 +55,73 @@ export const AgGridBooks = () => {
     params.api.setDatasource(dataSource);
   }, []);
 
-  const onSelectionChanged = (params) => {
-    const selectedRows = params.api.getSelectedRows();
-    setSelectedBook(selectedRows);
-  };
+  const onClickCreateBook = React.useCallback(() => {
+    gridRef.current.api.deselectAll();
+    setModalData([]);
+    setIsUpdate(false);
+    setIsVisibleModal(true);
+    setIsVisibleWarning(false);
+  }, []);
 
-  const deleteBook = () => {
-    if (!selectedBook) {
-      alert("Необходимо выделить книгу в таблтце, чтобы ее удалить.");
+  const onClickUpdateBook = React.useCallback(() => {
+    const selectedData = gridRef.current.api.getSelectedRows();
+
+    if (selectedData.length === 0) {
+      setIsVisibleWarning(true);
       return;
     }
-    console.log(selectedBook.title);
-    if (
-      window.confirm(`Вы точно хотите удалить книгу ${selectedBook.title}?`)
-    ) {
-      alert("Book deleted");
+
+    setIsUpdate(true);
+    setIsVisibleModal(true);
+    setIsVisibleWarning(false);
+    setModalData(...selectedData);
+    gridRef.current.api.deselectAll();
+  }, []);
+
+  const onCLickDeleteBook = React.useCallback(() => {
+    const selectedData = gridRef.current.api.getSelectedRows();
+
+    if (selectedData.length === 0) {
+      setIsVisibleWarning(true);
+      return;
     }
-  };
+
+    dispatch(deleteBook(selectedData[0].id));
+    dispatch(setReloadAg());
+    setIsVisibleWarning(false);
+    gridRef.current.api.deselectAll();
+    gridRef.current.api.purgeInfiniteCache();
+  }, []);
 
   return (
     <div className="mb-10">
       <div className="flex gap-15 mb-10">
-        <button className="bttn bttn-create">Добавить запись</button>
-        <button className="bttn bttn-update">Изменить запись</button>
-        <button onClick={deleteBook} className="bttn bttn-delete">
+        <button onClick={onClickCreateBook} className="bttn bttn-create">
+          Добавить запись
+        </button>
+        <button onClick={onClickUpdateBook} className="bttn bttn-update">
+          Изменить запись
+        </button>
+        <button onClick={onCLickDeleteBook} className="bttn bttn-delete">
           Удалить запись
         </button>
       </div>
-      <div className="ag-theme-alpine" style={{ height: 400 }}>
+      <div className={isVisibleWarning ? "warning" : "hidden"}>
+        Необходимо выделить книгу в таблтце, чтобы её удалить или изменить.
+      </div>
+      <BookModal
+        isVisibleModal={isVisibleModal}
+        setIsVisibleModal={setIsVisibleModal}
+        modalData={modalData}
+        setModalData={setModalData}
+        isUpdate={isUpdate}
+        gridRef={gridRef}
+      />
+      <div className="ag-theme-alpine" style={{ height: 400, width: "90%" }}>
         <AgGridReact
+          ref={gridRef}
           columnDefs={columnDefs}
           rowSelection="single"
-          onSelectionChanged={onSelectionChanged}
           rowModelType="infinite"
           cacheOverflowSize="1"
           maxConcurrentDatasourceRequests="1"

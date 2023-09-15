@@ -5,10 +5,10 @@ const { Books } = require("../models/models");
 class BooksController {
   async create(req, res, next) {
     try {
-      const { title, release, price, pageCount } = req.body;
-      if (title && release && price && pageCount) {
+      const { title, release, price, pagecount } = req.body;
+      if (title && release && price && pagecount) {
         const book = await sequelize.query(
-          `INSERT INTO books (title, release, price, pagecount) VALUES ('${title}', '${release}', '${price}','${pageCount}') RETURNING *`,
+          `INSERT INTO books (title, release, price, pagecount) VALUES ('${title}', '${release}', '${price}','${pagecount}') RETURNING *`,
           {
             type: sequelize.QueryTypes.SELECT,
           }
@@ -37,6 +37,7 @@ class BooksController {
         offset: offset,
         limit: limit,
         subQuery: false,
+        order: [["id", "ASC"]],
       });
       return res.json(books);
     } catch (e) {
@@ -60,11 +61,10 @@ class BooksController {
   async update(req, res, next) {
     try {
       const { bookId } = req.params;
-      const { title, release, price, pageCount } = req.body;
-
-      if (title && release && price && pageCount) {
+      const { title, release, price, pagecount } = req.body;
+      if (title && release && price && pagecount) {
         await sequelize.query(
-          `UPDATE books SET title = '${title}', release = '${release}', price = '${price}', pagecount = '${pageCount}' WHERE books.id = '${bookId}' RETURNING *`,
+          `UPDATE books SET title = '${title}', release = '${release}', price = '${price}', pagecount = '${pagecount}' WHERE books.id = '${bookId}' RETURNING *`,
           {
             type: sequelize.QueryTypes.SELECT,
           }

@@ -3,11 +3,18 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import React from "react";
 import { AgGridReact } from "ag-grid-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchReviews } from "../../redux/slices/ReviewsSlice/sllice";
+import { selectReloadAg } from "../../redux/slices/ConstsSlice/selectors";
 
 export const AgGridReviews = () => {
   const dispatch = useDispatch();
+  const reloadAg = useSelector(selectReloadAg);
+  const gridRef = React.useRef();
+
+  React.useEffect(() => {
+    gridRef?.current?.api?.purgeInfiniteCache();
+  }, [reloadAg]);
 
   const [columnDefs, setColumnDefs] = React.useState([
     {
@@ -51,8 +58,9 @@ export const AgGridReviews = () => {
 
   return (
     <div>
-      <div className="ag-theme-alpine" style={{ height: 400 }}>
+      <div className="ag-theme-alpine" style={{ height: 400, width: "90%" }}>
         <AgGridReact
+          ref={gridRef}
           columnDefs={columnDefs}
           rowModelType="infinite"
           cacheOverflowSize="1"

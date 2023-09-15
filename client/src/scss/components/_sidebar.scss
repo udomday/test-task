@@ -27,25 +27,6 @@
       margin: 20px 0;
       color: #fff;
     }
-
-    hr {
-      width: 100%;
-      flex-shrink: 0;
-      border-top: 0px solid rgba(0, 0, 0, 0.08);
-      border-right: 0px solid rgba(0, 0, 0, 0.08);
-      border-left: 0px solid rgba(0, 0, 0, 0.08);
-      height: 0.0625rem;
-      margin: 1rem 0px;
-      border-bottom: none;
-      opacity: 0.25;
-      background-color: transparent;
-      background-image: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0),
-        rgb(255, 255, 255),
-        rgba(255, 255, 255, 0)
-      ) !important;
-    }
   }
 
   &__body {

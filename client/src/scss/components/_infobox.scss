@@ -1,0 +1,58 @@
+.infobox-root {
+  position: relative;
+  width: 280px;
+  height: 135px;
+  padding: 10px 15px;
+  background-color: #fff;
+  box-shadow: 10px 10px 10px #00000009;
+  border-radius: 10px;
+  color: #344767;
+
+  .icon-block {
+    position: absolute;
+    top: -15px;
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+
+    &-gray {
+      background: linear-gradient(to top right, #1d1d1e, #393940);
+    }
+
+    &-blue {
+      background: linear-gradient(to top right, #1e77e9, #459ff0);
+    }
+
+    &-green {
+      background: linear-gradient(to top right, #47a34b, #63b867);
+    }
+
+    &-pink {
+      background: linear-gradient(to top right, #da1f63, #eb3e78);
+    }
+
+    span {
+      color: #fff;
+    }
+  }
+
+  hr {
+    flex-shrink: 0;
+    border-top: 0px solid rgba(0, 0, 0, 0.12);
+    border-right: 0px solid rgba(0, 0, 0, 0.12);
+    border-left: 0px solid rgba(0, 0, 0, 0.12);
+    background-color: transparent;
+    height: 0.0625rem;
+    margin: 5px 0px;
+    border-bottom: none;
+    opacity: 0.25;
+    background-image: linear-gradient(
+      to right,
+      rgba(52, 71, 103, 0),
+      rgba(52, 71, 103, 0.4),
+      rgba(52, 71, 103, 0)
+    ) !important;
+  }
+}

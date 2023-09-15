@@ -1,5 +1,5 @@
 import React from "react";
-import { AgGridBooks, AgGridReviews } from "../../components";
+import { AgGridBooks, AgGridReviews, BookModal } from "../../components";
 
 export const TablesPage = () => {
   return (

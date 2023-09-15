@@ -29,7 +29,7 @@ export const SideBar = React.memo(() => {
     >
       <div className="sidebar__header">
         <h4>TEST-TASK</h4>
-        <hr />
+        <hr className="hr-line" />
       </div>
       <ul className="sidebar__body flex flex-column flex-align-center">
         {MainLayoutRouts.map((el, index) => (

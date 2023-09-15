@@ -1,0 +1,30 @@
+.chartbox-root {
+  position: relative;
+  width: 600px;
+  height: 340px;
+  padding: 15px 10px;
+  border-radius: 10px;
+  background-color: #fff;
+
+  &-chart {
+    position: absolute;
+    top: -40px;
+    width: 500px;
+    height: 300px;
+    padding: 20px 10px;
+    border-radius: 10px;
+    background: linear-gradient(to top right, #1e77e9, #459ff0);
+    color: #fff;
+  }
+
+  &-info {
+    text-align: center;
+    h3 {
+      color: #344767;
+    }
+    span {
+      font-weight: lighter;
+      color: #344767a0;
+    }
+  }
+}

@@ -4,6 +4,7 @@ const initialState = {
   scrollTop: 0,
   windowWidth: window.innerWidth,
   isOpenSideBar: true,
+  reloadAg: true,
 };
 
 export const ConstsSlice = createSlice({
@@ -19,10 +20,13 @@ export const ConstsSlice = createSlice({
     setIsOpenSideBar: (state, actions) => {
       state.isOpenSideBar = actions.payload;
     },
+    setReloadAg: (state) => {
+      state.reloadAg = !state.reloadAg;
+    },
   },
 });
 
-export const { setScrollTop, setWindowWidth, setIsOpenSideBar } =
+export const { setScrollTop, setWindowWidth, setIsOpenSideBar, setReloadAg } =
   ConstsSlice.actions;
 
 export default ConstsSlice.reducer;
