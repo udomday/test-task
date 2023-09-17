@@ -14,14 +14,28 @@ export const fetchReviews = createAsyncThunk(
 
 const initialState = {
   reviews: {},
-  status: "LOADING",
+  statusReviews: "LOADING",
 };
 
 export const ReviewsSlice = createSlice({
   name: "reviews",
   initialState,
   reducers: {},
-  extraReducers: {},
+  extraReducers: (builder) => {
+    //fetchReviews
+    builder.addCase(fetchReviews.pending, (state) => {
+      state.statusReviews = "LOADING";
+      state.reviews = [];
+    });
+    builder.addCase(fetchReviews.fulfilled, (state, action) => {
+      state.reviews = action.payload;
+      state.statusReviews = "SUCCESS";
+    });
+    builder.addCase(fetchReviews.rejected, (state, action) => {
+      state.statusReviews = "ERROR";
+      state.reviews = [];
+    });
+  },
 });
 
 export default ReviewsSlice.reducer;

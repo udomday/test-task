@@ -59,7 +59,12 @@ export const Header = React.memo(() => {
         <h4>{location.charAt(0).toUpperCase() + location.slice(1)}</h4>
       </div>
       <div className="header__body flex gap-15">
-        <span className="material-icons-round pointer">account_circle</span>
+        <span
+          className="material-icons-round pointer"
+          onClick={() => navigate("/user")}
+        >
+          account_circle
+        </span>
         {windowWidth < 1200 &&
           (isOpenSideBar ? (
             <span
@@ -76,7 +81,12 @@ export const Header = React.memo(() => {
               menu_open
             </span>
           ))}
-        <span className="material-icons-round pointer">settings</span>
+        <span
+          onClick={() => navigate("/setting")}
+          className="material-icons-round pointer"
+        >
+          settings
+        </span>
       </div>
     </div>
   );

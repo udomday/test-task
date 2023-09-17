@@ -2,14 +2,14 @@
   position: sticky;
   top: 1em;
   z-index: 998;
-  width: 20vw;
+  width: 250px;
   height: 95vh;
   background: linear-gradient(#404048, #1c1c1c);
   border-radius: 12px;
   padding: 10px;
   transition: transform 1s;
 
-  @media (max-width: 1200px) {
+  @media (max-width: 1400px) {
     position: fixed;
   }
 

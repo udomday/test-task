@@ -15,6 +15,10 @@ body {
 }
 
 .mt {
+  &-15 {
+    margin-top: 15px;
+  }
+
   &-60 {
     margin-top: 60px;
   }
@@ -104,6 +108,13 @@ body {
   direction: ltr;
   -webkit-font-feature-settings: "liga";
   -webkit-font-smoothing: antialiased;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }
 
 .hr-line {
@@ -131,10 +142,27 @@ body {
 
   &-columns-2 {
     grid-template-columns: repeat(2, 600px);
+
+    @media (max-width: 1300px) {
+      justify-content: center;
+      gap: 50px;
+      grid-template-columns: repeat(1, 600px);
+    }
   }
 
   &-columns-4 {
     grid-template-columns: repeat(4, 280px);
+
+    @media (max-width: 1300px) {
+      gap: 25px;
+      grid-template-columns: repeat(2, 280px);
+    }
+
+    @media (max-width: 620px) {
+      justify-content: center;
+      gap: 25px;
+      grid-template-columns: repeat(1, 280px);
+    }
   }
 }
 

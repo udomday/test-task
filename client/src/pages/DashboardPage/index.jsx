@@ -1,7 +1,26 @@
 import React from "react";
 import { ChartBox, InfoBox } from "../../components";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAllBooks } from "../../redux/slices/BookSlice/selectors";
+import { fetchBooks } from "../../redux/slices/BookSlice/slice";
+import { fetchReviews } from "../../redux/slices/ReviewsSlice/sllice";
+import { selectAllReviews } from "../../redux/slices/ReviewsSlice/selectors";
 
-export const DashboardPage = () => {
+export const DashboardPage = React.memo(() => {
+  const { books, statusBook } = useSelector(selectAllBooks);
+  const { reviews, statusReviews } = useSelector(selectAllReviews);
+  const reloadRef = React.useRef(false);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (reloadRef.current) {
+      dispatch(fetchBooks({ startRow: 0, endRow: 5 }));
+      dispatch(fetchReviews({ startRow: 0, endRow: 5 }));
+    }
+
+    reloadRef.current = true;
+  }, []);
+
   return (
     <div style={{ paddingTop: "20px", width: "100%" }}>
       <div
@@ -38,9 +57,27 @@ export const DashboardPage = () => {
         />
       </div>
       <div className="grid grid-columns-2 mt-60">
-        <ChartBox />
-        <ChartBox />
+        {statusBook === "SUCCESS" && (
+          <ChartBox
+            data={books.rows}
+            dataKeyOne={"title"}
+            dataKeyTwo={"price"}
+            title={"Книги"}
+            description={"Статистика книг"}
+            styles={"chartbox-root-chart chartbox-root-chart-blue"}
+          />
+        )}
+        {statusReviews === "SUCCESS" && (
+          <ChartBox
+            data={reviews.rows}
+            dataKeyOne={"login"}
+            dataKeyTwo={"likes"}
+            title={"Отзывы"}
+            description={"Статистика отзывов"}
+            styles={"chartbox-root-chart chartbox-root-chart-green"}
+          />
+        )}
       </div>
     </div>
   );
-};
+});

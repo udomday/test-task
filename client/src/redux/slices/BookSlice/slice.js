@@ -29,8 +29,6 @@ export const createBook = createAsyncThunk(
 export const updateBook = createAsyncThunk(
   "updateBook",
   async ({ id, title, pagecount, price, release }) => {
-    console.log(id, title, pagecount, price, release);
-
     const { data } = await axios.put(`http://localhost:5050/api/books/${id}`, {
       title,
       pagecount,
@@ -52,7 +50,7 @@ export const deleteBook = createAsyncThunk("deleteBooks", async (bookId) => {
 
 const initialState = {
   books: [],
-  status: "LOADING",
+  statusBook: "LOADING",
 };
 
 export const BookSlice = createSlice({
@@ -62,15 +60,15 @@ export const BookSlice = createSlice({
   extraReducers: (builder) => {
     //fetchBooks
     builder.addCase(fetchBooks.pending, (state) => {
-      state.status = "LOADING";
+      state.statusBook = "LOADING";
       state.books = [];
     });
     builder.addCase(fetchBooks.fulfilled, (state, action) => {
       state.books = action.payload;
-      state.status = "SUCCESS";
+      state.statusBook = "SUCCESS";
     });
     builder.addCase(fetchBooks.rejected, (state, action) => {
-      state.status = "ERROR";
+      state.statusBook = "ERROR";
       state.books = [];
     });
   },

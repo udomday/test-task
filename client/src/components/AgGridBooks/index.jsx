@@ -125,9 +125,9 @@ export const AgGridBooks = () => {
           rowModelType="infinite"
           cacheOverflowSize="1"
           maxConcurrentDatasourceRequests="1"
-          infiniteInitialRowCount="10"
-          maxBlocksInCache="10"
-          cacheBlockSize="10"
+          infiniteInitialRowCount="5"
+          maxBlocksInCache="5"
+          cacheBlockSize="5"
           onGridReady={onGridReady}
         />
       </div>

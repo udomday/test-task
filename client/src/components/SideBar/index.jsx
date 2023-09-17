@@ -12,7 +12,7 @@ export const SideBar = React.memo(() => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    if (windowWidth < 1200) {
+    if (windowWidth < 1400) {
       dispatch(setIsOpenSideBar(false));
     } else {
       dispatch(setIsOpenSideBar(true));
@@ -27,6 +27,15 @@ export const SideBar = React.memo(() => {
           : "sidebar sidebar-close sticky flex flex-column"
       }
     >
+      {windowWidth < 1400 && (
+        <span
+          className="material-icons-round"
+          style={{ color: "#fff", textAlign: "right", cursor: "pointer" }}
+          onClick={() => dispatch(setIsOpenSideBar(false))}
+        >
+          close
+        </span>
+      )}
       <div className="sidebar__header">
         <h4>TEST-TASK</h4>
         <hr className="hr-line" />

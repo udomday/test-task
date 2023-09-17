@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, SideBar } from "../../components";
+import { Footer, Header, SideBar } from "../../components";
 import { Outlet } from "react-router-dom";
 
 export const MainLayout = () => {
@@ -9,6 +9,7 @@ export const MainLayout = () => {
       <div style={{ width: "100%", height: "100%" }}>
         <Header />
         <Outlet />
+        <Footer />
       </div>
     </div>
   );

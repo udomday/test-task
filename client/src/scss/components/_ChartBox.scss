@@ -6,6 +6,10 @@
   border-radius: 10px;
   background-color: #fff;
 
+  @media (max-width: 620px) {
+    width: 500px;
+  }
+
   &-chart {
     position: absolute;
     top: -40px;
@@ -13,8 +17,19 @@
     height: 300px;
     padding: 20px 10px;
     border-radius: 10px;
-    background: linear-gradient(to top right, #1e77e9, #459ff0);
     color: #fff;
+
+    @media (max-width: 620px) {
+      width: 400px;
+    }
+
+    &-blue {
+      background: linear-gradient(to top right, #1e77e9, #459ff0);
+    }
+
+    &-green {
+      background: linear-gradient(to top right, #43a047, #65bb69);
+    }
   }
 
   &-info {

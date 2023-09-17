@@ -6,3 +6,4 @@ export * from "./AgGridReviews/index";
 export * from "./BookModal/index";
 export * from "./InfoBox/index";
 export * from "./ChartBox/index";
+export * from "./Footer/index";
